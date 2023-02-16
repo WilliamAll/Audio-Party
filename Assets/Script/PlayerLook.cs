@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerLook : MonoBehaviour
 {
-    private InputAction _inputAction;
+    //private InputAction _inputAction;
 
     [SerializeField] private float sensitivity = 100f;
     //[SerializeField] private Transform playerBody;
@@ -21,7 +21,7 @@ public class PlayerLook : MonoBehaviour
 
     private void Update()
     {
-        RayCastDebug();
+        //RayCastDebug();
     }
 
     private void OnEnable()
@@ -74,10 +74,12 @@ public class PlayerLook : MonoBehaviour
     public void OnLook(InputAction.CallbackContext context)
     {
         Vector2 mouseDelta = context.ReadValue<Vector2>() * sensitivity * Time.deltaTime;
-        Debug.Log("Value of MouseDelta" + mouseDelta);
+        //Debug.Log("Value of MouseDelta" + mouseDelta);
         float currentXRotation = transform.eulerAngles.x;
         float newXRotation = currentXRotation - mouseDelta.y;
         transform.rotation = Quaternion.Euler(newXRotation, transform.eulerAngles.y + mouseDelta.x, 0f);
+
+        RayCastDebug();
     }
 
 }
