@@ -53,7 +53,7 @@ public class PlayerLook : MonoBehaviour
     {
         //MOUSE DETA is use to get value of mouse
         Vector2 mouseDelta = Mouse.current.delta.ReadValue() * sensitivity * Time.deltaTime;
-        Debug.Log("Value of mouse delta" + mouseDelta);
+        //Debug.Log("Value of mouse delta" + mouseDelta);
 
         // Clamp the vertical look angle to avoid flipping the camera upside down
         float currentXRotation = transform.eulerAngles.x;
