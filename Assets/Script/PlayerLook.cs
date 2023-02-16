@@ -10,20 +10,27 @@ public class PlayerLook : MonoBehaviour
     [SerializeField] private float sensitivity = 100f;
     //[SerializeField] private Transform playerBody;
 
+    Player_Input _player_Input;
+
 
     private void Awake()
     {
+        _player_Input = new Player_Input();
+        _player_Input.Player.Enable();
     }
 
     private void Update()
     {
         RayCastDebug();
-        MouseDelta();
     }
 
     private void OnEnable()
     {
-        //playerInput.actions.Look.performed += OnLook;
+        _player_Input.Player.Look.performed += OnLook;
+    }
+    private void OnDisable()
+    {
+        _player_Input.Player.Look.performed -= OnLook;
     }
 
     private void PadInput() //Fixed Update by documentaiton
@@ -62,6 +69,15 @@ public class PlayerLook : MonoBehaviour
 
         // Rotate the player body around the Y axis
         //transform.Rotate(Vector3.up * mouseDelta.x);
+    }
+
+    public void OnLook(InputAction.CallbackContext context)
+    {
+        Vector2 mouseDelta = context.ReadValue<Vector2>() * sensitivity * Time.deltaTime;
+        Debug.Log("Value of MouseDelta" + mouseDelta);
+        float currentXRotation = transform.eulerAngles.x;
+        float newXRotation = currentXRotation - mouseDelta.y;
+        transform.rotation = Quaternion.Euler(newXRotation, transform.eulerAngles.y + mouseDelta.x, 0f);
     }
 
 }
