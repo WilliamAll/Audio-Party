@@ -26,11 +26,11 @@ public class PlayerLook : MonoBehaviour
 
     private void OnEnable()
     {
-        _player_Input.Player.Look.performed += OnLook;
+        //_player_Input.Player.Look.performed += OnLook;
     }
     private void OnDisable()
     {
-        _player_Input.Player.Look.performed -= OnLook;
+        //_player_Input.Player.Look.performed -= OnLook;
     }
 
     private void PadInput() //Fixed Update by documentaiton
@@ -71,9 +71,9 @@ public class PlayerLook : MonoBehaviour
         //transform.Rotate(Vector3.up * mouseDelta.x);
     }
 
-    public void OnLook(InputAction.CallbackContext context)
+    public void OnLook(InputValue value) //InputAction.CallbackContext context
     {
-        Vector2 mouseDelta = context.ReadValue<Vector2>() * sensitivity * Time.deltaTime;
+        Vector2 mouseDelta = value.Get<Vector2>() * sensitivity * Time.deltaTime;
         //Debug.Log("Value of MouseDelta" + mouseDelta);
         float currentXRotation = transform.eulerAngles.x;
         float newXRotation = currentXRotation - mouseDelta.y;
