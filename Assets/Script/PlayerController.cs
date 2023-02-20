@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _characterController.Move(moveTo3D);
+        _characterController.Move(moveTo3D * speed);
     }
 
     private void Update()
@@ -40,20 +40,26 @@ public class PlayerController : MonoBehaviour
 
     private void OnEnable()
     {
-        _player_Input.Player.Fire.performed += OnFire; //sub
+        //_player_Input.Player.Fire.performed += OnFire; //sub
         //_player_Input.Player.Move.performed += OnMove;
     }
 
     private void OnDisable()
     {
-        _player_Input.Player.Fire.performed -= OnFire; //desub
+        //_player_Input.Player.Fire.performed -= OnFire; //desub
         //_player_Input.Player.Move.performed -= OnMove;
     }
 
     private void OnMove(InputValue value) //check name and add On
     {
         moveXY = value.Get<Vector2>();
-        moveTo3D = new Vector3(moveXY.x, 0f, moveXY.y); //the y go to z
+        moveTo3D = new Vector3(moveXY.x, 0f, moveXY.y); //the y go to z //move by refer to map XZ
+        moveTo3D = Quaternion.Euler(0f, Camera.main.transform.eulerAngles.y, 0f) * moveTo3D; //move by considere camera rotation
+    }
+
+    public void OnFire(InputAction.CallbackContext context)
+    {
+        Debug.Log("Fire ! ");
     }
 
     //TOOL DEBUG AND UNUSED
@@ -86,14 +92,5 @@ public class PlayerController : MonoBehaviour
 
     // METHOD
 
-    private void CalculeMove() //to fixed update
-    {
-        Vector3 moveDirection = new Vector3(moveXY.x, 0f, moveXY.y).normalized;
-        transform.Translate(moveDirection * speed * Time.deltaTime);
-    }
 
-    public void OnFire(InputAction.CallbackContext context)
-    {
-        Debug.Log("Fire ! ");
-    }
 }

@@ -33,20 +33,7 @@ public class PlayerLook : MonoBehaviour
         //_player_Input.Player.Look.performed -= OnLook;
     }
 
-    private void PadInput() //Fixed Update by documentaiton
-    {
-        var gamepad = Gamepad.current;
-        if (gamepad == null)
-            return; // No gamepad connected.
 
-        if (gamepad.rightTrigger.wasPressedThisFrame)
-        {
-            // 'Use' code here
-            Debug.Log("Right Trigger detected, but No Configured Yet");
-        }
-
-        Vector2 move = gamepad.leftStick.ReadValue();
-    }
     void RayCastDebug()
     {
         Vector3 camPos = Camera.main.transform.position;
@@ -81,5 +68,25 @@ public class PlayerLook : MonoBehaviour
 
         RayCastDebug();
     }
+
+    //DEBUG AND TOOL AND UNUSED
+    /*
+        private void PadInput() //Fixed Update by documentaiton
+    {
+        var gamepad = Gamepad.current;
+        if (gamepad == null)
+            return; // No gamepad connected.
+
+        if (gamepad.rightTrigger.wasPressedThisFrame)
+        {
+            // 'Use' code here
+            Debug.Log("Right Trigger detected, but No Configured Yet");
+        }
+
+        Vector2 move = gamepad.leftStick.ReadValue();
+    }
+
+
+    */
 
 }
